@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Live Doubt Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📺 YouTube Doubt Chat 💬</h1>
+    <div class="input-section">
+      <input type="text" id="youtubeLink" placeholder="Paste YouTube video link..." />
+      <button onclick="loadVideo()">Load Video</button>
+    </div>
+
+    <div id="video-chat-wrapper">
+      <div class="video-container">
+        <iframe id="youtubePlayer" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="chat-container">
+        <h3>💡 Ask & Solve Doubts</h3>
+        <div id="chatBox"></div>
+        <input type="text" id="msgInput" placeholder="Type your doubt..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
