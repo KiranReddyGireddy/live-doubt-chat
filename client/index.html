@@ -2,32 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>YouTube Live Doubt Chat</title>
+  <title>Live Doubt Solving</title>
   <link rel="stylesheet" href="style.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://unpkg.com/excalidraw/dist/excalidraw.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css" />
 </head>
 <body>
   <div class="container">
-    <h1>📺 YouTube Doubt Chat 💬</h1>
-    <div class="input-section">
-      <input type="text" id="youtubeLink" placeholder="Paste YouTube video link..." />
-      <button onclick="loadVideo()">Load Video</button>
+    <h1>📺 Live Doubt Solving Chat</h1>
+    <input type="text" id="videoUrl" placeholder="Paste YouTube Video URL..." />
+    <button onclick="loadVideo()">Load Video</button>
+    <iframe id="videoFrame" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+
+    <div id="onlineUsers">🟢 0 users online</div>
+    <div id="chat"></div>
+    <input type="text" id="timestamp" placeholder="Timestamp (e.g. 3:45)" />
+    <input type="text" id="message" placeholder="Type your doubt...">
+    <button onclick="sendMessage()">Send</button>
+    
+    <div class="reactions">
+      <button onclick="addReaction('👍')">👍</button>
+      <button onclick="addReaction('✅')">Mark as Solved</button>
     </div>
 
-    <div id="video-chat-wrapper">
-      <div class="video-container">
-        <iframe id="youtubePlayer" frameborder="0" allowfullscreen></iframe>
-      </div>
+    <h3>🧠 Collaborative Whiteboard</h3>
+    <iframe src="https://excalidraw.com/" width="100%" height="400"></iframe>
 
-      <div class="chat-container">
-        <h3>💡 Ask & Solve Doubts</h3>
-        <div id="chatBox"></div>
-        <input type="text" id="msgInput" placeholder="Type your doubt..." />
-        <button onclick="sendMessage()">Send</button>
-      </div>
-    </div>
+    <h3>💻 Code Editor</h3>
+    <textarea id="codeEditor">// Write code here</textarea>
   </div>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="script.js"></script>
+  <script src="client.js"></script>
 </body>
 </html>

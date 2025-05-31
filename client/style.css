@@ -1,87 +1,153 @@
+/* General reset */
+* {
+  box-sizing: border-box;
+}
+
+/* Background and body */
 body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f5f5;
-}
-
-.container {
-  padding: 20px;
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 20px;
+  background: url('C:\doubt solving project\client\background.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #333;
+  backdrop-filter: blur(6px);
 }
 
-.input-section {
+/* Main container */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.container:hover {
+  transform: scale(1.01);
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
-#youtubeLink {
-  padding: 10px;
-  width: 60%;
-  border-radius: 8px;
+/* Input box */
+input[type="text"] {
+  width: 80%;
+  padding: 12px;
+  margin: 10px 5px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
 }
 
+input[type="text"]:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 8px #3498db60;
+}
+
+/* Buttons */
 button {
-  padding: 10px 20px;
-  margin-left: 10px;
-  font-size: 16px;
-  background-color: #0d6efd;
+  padding: 12px 18px;
+  background-color: #3498db;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s ease;
 }
 
-#video-chat-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+button:hover {
+  background-color: #2980b9;
 }
 
-.video-container iframe {
-  width: 560px;
-  height: 315px;
+/* Video player styling */
+#videoFrame {
+  display: block;
+  margin: 20px auto;
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-height: 450px;
 }
 
-.chat-container {
-  width: 300px;
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-}
-
-#chatBox {
-  height: 260px;
+/* Chat box */
+#chat {
+  max-height: 250px;
   overflow-y: auto;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  padding: 10px;
-  text-align: left;
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
   background: #fdfdfd;
-  border-radius: 6px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-#msgInput {
-  width: calc(100% - 80px);
-  padding: 8px;
-  margin-top: 5px;
-  border-radius: 6px;
+.message {
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  background: #d6f0ff;
+  border-left: 5px solid #3498db;
+  border-radius: 10px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Online users indicator */
+#onlineUsers {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #27ae60;
+  text-align: right;
+}
+
+/* Reactions */
+.reactions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.reactions button {
+  font-size: 1.2rem;
+  background: #f1f1f1;
+  color: #333;
   border: 1px solid #ccc;
 }
 
-.chat-container button {
-  width: 60px;
-  margin-left: 5px;
-  margin-top: 5px;
+.reactions button:hover {
+  background-color: #ecf0f1;
+}
+
+/* Code editor */
+textarea#codeEditor {
+  width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Fira Code', monospace;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  resize: vertical;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Animation for fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

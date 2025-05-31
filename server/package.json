@@ -1,12 +1,13 @@
 {
-  "name": "youtube-doubt-chat-server",
+  "name": "live-doubt-chat",
   "version": "1.0.0",
+  "description": "Live Doubt Solving Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.7.2"
   }
 }
