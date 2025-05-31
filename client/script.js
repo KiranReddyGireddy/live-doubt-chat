@@ -1,5 +1,6 @@
 const express = require("express");
 const http = require("http");
+const path = require("path");
 const { Server } = require("socket.io");
 const { v4: uuidv4 } = require("uuid");
 
@@ -7,23 +8,27 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.use(express.static("public"));
+// Serve static files from 'public' folder
+app.use(express.static(path.join(__dirname, "public")));
 
-let doubts = []; // Store doubts in memory for demo, ideally use DB
+let doubts = []; // Temporary in-memory storage
 
 io.on("connection", (socket) => {
-  console.log("New client connected");
+  console.log("🔌 New client connected");
 
   socket.on("joinRoom", ({ videoId, username }) => {
     socket.join(videoId);
     socket.username = username;
     socket.videoId = videoId;
 
-    // Send current doubts for this video
+    // Send existing doubts for the video
     const currentDoubts = doubts.filter((d) => d.videoId === videoId);
     socket.emit("loadDoubts", currentDoubts);
 
-    io.to(videoId).emit("onlineUsers", io.sockets.adapter.rooms.get(videoId)?.size || 1);
+    const room = io.sockets.adapter.rooms.get(videoId);
+    const onlineCount = room ? room.size : 1;
+
+    io.to(videoId).emit("onlineUsers", onlineCount);
     io.to(videoId).emit("notification", `${username} joined the room`);
   });
 
@@ -64,17 +69,25 @@ io.on("connection", (socket) => {
 
   socket.on("disconnecting", () => {
     if (socket.videoId && socket.username) {
+      const room = io.sockets.adapter.rooms.get(socket.videoId);
+      const currentSize = room ? room.size - 1 : 0;
       io.to(socket.videoId).emit("notification", `${socket.username} left the room`);
-      io.to(socket.videoId).emit("onlineUsers", io.sockets.adapter.rooms.get(socket.videoId)?.size - 1 || 0);
+      io.to(socket.videoId).emit("onlineUsers", currentSize);
     }
   });
 
   socket.on("disconnect", () => {
-    console.log("Client disconnected");
+    console.log("🔌 Client disconnected");
   });
 });
 
+// Fallback route (optional)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
+// Start server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
